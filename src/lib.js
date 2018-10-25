@@ -73,8 +73,8 @@ const curry = function(funct,firstArgument){
 }
 
 const compose = function(funct1, funct2){
-  return function(data1,data2){
-    return funct1(funct2(data1,data2));
+  return function(firstArgument,secondArgument){
+    return funct1(funct2(firstArgument,secondArgument));
   }
 }
 
