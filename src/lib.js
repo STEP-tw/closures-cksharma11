@@ -57,7 +57,8 @@ const makeCycler = function(input){
     let result = list[counter];
     if(counter < list.length-1) {
       counter++;
-    } else{
+    }
+    else{
       counter = 0;
     }
     return result;
