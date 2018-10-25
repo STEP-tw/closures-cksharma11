@@ -47,10 +47,23 @@ const makeFiboGenerator = function(input,input_2){
       term_2 = term_1 + fibSeries;
     }
     return fibSeries;
-  }  
+  }; 
 };
 
-const makeCycler = undefined;
+const makeCycler = function(input){
+  let counter = 0;
+  let list = input.slice();
+  return function(){
+    let result = list[counter];
+    if(counter < list.length-1) {
+      counter++;
+    } else{
+      counter = 0;
+    }
+    return result;
+  };
+};
+
 const curry = undefined;
 const compose = undefined;
 
