@@ -27,34 +27,24 @@ const makeDeltaTracker = function(old){
   };
 };
 
-const generateNextFibNumber = function(term_1, term_2, numberOfIteration){
-  let fibSeries = 0;
-  for(let index = 0; index < numberOfIteration; index++){
-    fibSeries = term_1;
-    term_1 = term_2;
-    term_2 = term_1 + fibSeries;
-  }
-  return fibSeries;
-};
-
-const assignTermsForFibo = function(firstArgument, secondArgument, initValue, numberOfIteration){
-  let term_1 = firstArgument;
-  let term_2 = secondArgument;
-  if(secondArgument == undefined){
-    term_1 = 0;
-    term_2 = (initValue > 0) ? initValue : 1;
-  }
-  return generateNextFibNumber(term_1, term_2, numberOfIteration);
-}
-
 const makeFiboGenerator = function(firstArgument,secondArgument){
-  firstArgument = (firstArgument == undefined) ? 0 : firstArgument;
-  let numberOfIteration = 0;
-  let initValue = firstArgument;
-  return function(){
-    numberOfIteration++;
-    return assignTermsForFibo(firstArgument, secondArgument, initValue, numberOfIteration);
+  let secondTerm = secondArgument - firstArgument;
+  let firstTerm = firstArgument - secondTerm;
+
+  if(!secondArgument){
+    firstTerm = -firstArgument;
+    secondTerm = firstArgument;
   }
+  if(!firstArgument){
+    firstTerm = -1;
+    secondTerm = 1;
+  }
+  return function(){
+    let result = firstTerm + secondTerm;
+    firstTerm = secondTerm;
+    secondTerm = result;
+    return result;
+  };
 };
 
 const makeCycler = function(firstArgument){
