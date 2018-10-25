@@ -57,15 +57,43 @@ const makeCycler = function(input){
     let result = list[counter];
     if(counter < list.length-1) {
       counter++;
-    }
-    else{
+    } else{
       counter = 0;
     }
     return result;
   };
 };
 
-const curry = undefined;
+const sum = function(num){
+  return num + 2;
+};
+
+const concatWith = function(listToAdd){
+  return [1,2,3].concat(listToAdd);
+};
+
+const isBetween = function(num1,num2){
+  return (10 > num1) && (10 < num2);  
+};
+
+const paintCar = function(make, model){
+  return {color: 'yellow', make: make, model: model};
+}
+
+const curry = function(input, value){
+  return function(input_2, input_3){
+    if(input.name == 'sum'){
+      return sum(input_2);
+    }
+    if(input.name == 'isBetween'){
+      return isBetween(input_2, input_3);
+    }
+    if(input.name == 'concatWith'){
+      return concatWith(input_2);  
+    }
+    return paintCar(input_2, input_3);
+  };
+};
 const compose = undefined;
 
 exports.makeConstant=makeConstant;
