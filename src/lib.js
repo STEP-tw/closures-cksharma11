@@ -1,19 +1,19 @@
-const makeConstant = function(input){
+const makeConstant = function(firstArgument){
   return function(){
-    return input;
+    return firstArgument;
   };
 };
 
-const makeCounterFromN = function(input){
+const makeCounterFromN = function(firstArgument){
   return function(){
-    return input++;
+    return firstArgument++;
   };
 };
 
-const makeCounterFromZero = function(input){
-  input = 0;
+const makeCounterFromZero = function(firstArgument){
+  firstArgument = 0;
   return function(){
-    return input++;
+    return firstArgument++;
   };
 };
 
@@ -27,32 +27,35 @@ const makeDeltaTracker = function(old){
   };
 };
 
-const makeFiboGenerator = function(input,input_2){
-  input = (input == undefined) ? 0 : input;
-  let iteration = 0;
-  let initValue = input;
+const generateNextFibNumber = function(term_1, term_2, numberOfIteration){
+  let fibSeries = 0;
+  for(let index = 0; index < numberOfIteration; index++){
+    fibSeries = term_1;
+    term_1 = term_2;
+    term_2 = term_1 + fibSeries;
+  }
+  return fibSeries;
+};
+
+const makeFiboGenerator = function(firstArgument,secondArgument){
+  firstArgument = (firstArgument == undefined) ? 0 : firstArgument;
+  let numberOfIteration = 0;
+  let initValue = firstArgument;
   return function(){
-    let term_1 = input;
-    let term_2 = input_2;
-    if(input_2 == undefined){
+    let term_1 = firstArgument;
+    let term_2 = secondArgument;
+    if(secondArgument == undefined){
       term_1 = 0;
       term_2 = (initValue > 0) ? initValue : 1;
     }
-    let fibSeries = 0;
-    iteration++;
-    
-    for(let index = 0; index < iteration; index++){
-      fibSeries = term_1;
-      term_1 = term_2;
-      term_2 = term_1 + fibSeries;
-    }
-    return fibSeries;
+    numberOfIteration++;
+    return generateNextFibNumber(term_1, term_2, numberOfIteration);
   }; 
 };
 
-const makeCycler = function(input){
+const makeCycler = function(firstArgument){
   let counter = 0;
-  let list = input.slice();
+  let list = firstArgument.slice();
   return function(){
     let result = list[counter];
     if(counter < list.length-1) {
@@ -80,18 +83,18 @@ const paintCar = function(make, model){
   return {color: 'yellow', make: make, model: model};
 }
 
-const curry = function(input, value){
-  return function(input_2, input_3){
-    if(input.name == 'sum'){
-      return sum(input_2);
+const curry = function(firstArgument, value){
+  return function(secondArgument, thirdArgument){
+    if(firstArgument.name == 'sum'){
+      return sum(secondArgument);
     }
-    if(input.name == 'isBetween'){
-      return isBetween(input_2, input_3);
+    if(firstArgument.name == 'isBetween'){
+      return isBetween(secondArgument, thirdArgument);
     }
-    if(input.name == 'concatWith'){
-      return concatWith(input_2);  
+    if(firstArgument.name == 'concatWith'){
+      return concatWith(secondArgument);  
     }
-    return paintCar(input_2, input_3);
+    return paintCar(secondArgument, thirdArgument);
   };
 };
 
