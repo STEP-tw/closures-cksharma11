@@ -16,7 +16,17 @@ const makeCounterFromZero = function(input){
     return input++;
   };
 };
-const makeDeltaTracker = undefined;
+
+const makeDeltaTracker = function(old){
+  return function(delta){
+    let result = { old: old, delta: 0, new : 0};
+    result.delta = (delta == undefined) ? 0 : delta;
+    result.new = result.old + result.delta;
+    old = delta + old;
+    return result;
+  };
+};
+
 const makeFiboGenerator = undefined;
 const makeCycler = undefined;
 const curry = undefined;
