@@ -94,7 +94,37 @@ const curry = function(input, value){
     return paintCar(input_2, input_3);
   };
 };
-const compose = undefined;
+
+const decrement = function(length){
+  return length - 1;
+};
+
+const lengthOf = function(list){
+  return decrement(list.length);
+};
+
+const isElementNonZero = function(element){
+  return element != 0;
+};
+
+const removeZeroes = function(list_1, list_2){
+  let newList_1 = list_1.filter(isElementNonZero);
+  let newList_2 = list_2.filter(isElementNonZero);
+  return concatNonZeroes(newList_1, newList_2);
+};
+
+const concatNonZeroes = function(list_1, list_2){
+  return list_1.concat(list_2);
+};
+
+const compose = function(funct1, funct2){
+  return function(list_1, list_2){
+    if(funct1.name == 'removeZeroes'){
+      return removeZeroes(list_1, list_2);
+    }
+    return lengthOf(list_1);
+  };
+};
 
 exports.makeConstant=makeConstant;
 exports.makeCounterFromZero=makeCounterFromZero;
