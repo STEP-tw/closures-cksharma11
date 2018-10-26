@@ -15,9 +15,9 @@ const makeCounterFromZero = function(firstArgument){
 };
 
 const makeDeltaTracker = function(old){
-  return function(delta){
+  return function(delta = 0){
     let result = { old: old, delta: 0, new : 0};
-    result.delta = (!delta) ? 0 : delta;
+    result.delta = delta;
     result.new = result.old + result.delta;
     old = delta + old;
     return result;
