@@ -11,38 +11,26 @@ const makeCounterFromN = function(firstArgument){
 };
 
 const makeCounterFromZero = function(firstArgument){
-  firstArgument = 0;
-  return function(){
-    return firstArgument++;
-  };
+  return makeCounterFromN(0);
 };
 
 const makeDeltaTracker = function(old){
   return function(delta){
     let result = { old: old, delta: 0, new : 0};
-    result.delta = (delta == undefined) ? 0 : delta;
+    result.delta = (!delta) ? 0 : delta;
     result.new = result.old + result.delta;
     old = delta + old;
     return result;
   };
 };
 
-const makeFiboGenerator = function(firstArgument,secondArgument){
-  let secondTerm = secondArgument - firstArgument;
-  let firstTerm = firstArgument - secondTerm;
-
-  if(!secondArgument){
-    firstTerm = -firstArgument;
-    secondTerm = firstArgument;
-  }
-  if(!firstArgument){
-    firstTerm = -1;
-    secondTerm = 1;
-  }
+const makeFiboGenerator = function(firstArgument = 1, secondArgument = 0){
+  let firstTerm = Math.min(firstArgument, secondArgument);
+  let secondTerm = Math.max(firstArgument, secondArgument);
   return function(){
-    let result = firstTerm + secondTerm;
+    let result = firstTerm;
     firstTerm = secondTerm;
-    secondTerm = result;
+    secondTerm = firstTerm + result;
     return result;
   };
 };
