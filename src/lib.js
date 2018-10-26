@@ -1,16 +1,16 @@
-const makeConstant = function(firstArgument){
+const makeConstant = function(constant){
   return function(){
-    return firstArgument;
+    return constant;
   };
 };
 
-const makeCounterFromN = function(firstArgument){
+const makeCounterFromN = function(counter){
   return function(){
-    return firstArgument++;
+    return counter++;
   };
 };
 
-const makeCounterFromZero = function(firstArgument){
+const makeCounterFromZero = function(counter){
   return makeCounterFromN(0);
 };
 
@@ -24,19 +24,21 @@ const makeDeltaTracker = function(old){
   };
 };
 
-const makeFiboGenerator = function(firstArgument = 1, secondArgument = 0){
-  let firstTerm = Math.min(firstArgument, secondArgument);
-  let secondTerm = Math.max(firstArgument, secondArgument);
+const makeFiboGenerator = function(firstInitialTerm = 1, secondInitialTerm = 0){
+  let firstTerm = Math.min(firstInitialTerm, secondInitialTerm);
+  let secondTerm = Math.max(firstInitialTerm, secondInitialTerm);
   return function(){
-    let result = firstTerm;
+    let nextTerm = firstTerm;
     firstTerm = secondTerm;
-    secondTerm = firstTerm + result;
-    return result;
+    secondTerm = firstTerm + nextTerm;
+    return nextTerm;
   };
 };
 
-const makeCycler = function(firstArgument){
-  let list = firstArgument.slice();
+const makeCycler = function(collection){
+  let list = collection.map(function(element){
+    return element;
+  });
   return function(){
     let result = list[0];
     list.push(list.shift());
@@ -50,9 +52,9 @@ const curry = function(funct,firstArgument){
   }
 }
 
-const compose = function(funct1, funct2){
+const compose = function(outerFunction, innerFunction){
   return function(firstArgument,secondArgument){
-    return funct1(funct2(firstArgument,secondArgument));
+    return outerFunction(innerFunction(firstArgument,secondArgument));
   }
 }
 
